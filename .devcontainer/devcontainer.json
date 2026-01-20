@@ -1,0 +1,66 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/python
+{
+    "name": "Python 3",
+    // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+    "image": "mcr.microsoft.com/devcontainers/python:2-3.13-trixie",
+    // Features to add to the dev container. More info: https://containers.dev/features.
+    "features": {
+        "ghcr.io/devcontainers/features/azure-cli:1": {
+            "version": "latest"
+        },
+        "ghcr.io/devcontainers/features/terraform:1": {
+            "version": "latest"
+        },
+        "ghcr.io/devcontainers/features/docker-in-docker:1": {
+            "moby": true
+        },
+        "ghcr.io/devcontainers/features/java:1": {
+            "version": "17",
+            "installJdk": true
+        },
+        "ghcr.io/devcontainers/features/common-utils:1": {
+            "installZsh": true,
+            "configureZshAsDefaultShell": true
+        }
+    },
+    // Use 'forwardPorts' to make a list of ports inside the container available locally.
+    // "forwardPorts": [],
+    // Use 'postCreateCommand' to run commands after the container is created.
+    "postCreateCommand": "apt-get update && apt-get install -y jq htop && pip install uv && uv pip install yq ruff pytest duckdb parquet-tools visidata csvkit --system",
+    // Configure tool-specific properties.
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-python.debugpy",
+                "charliermarsh.ruff",
+                "hashicorp.terraform",
+                "ms-vscode.azurecli",
+                "ms-azuretools.vscode-docker",
+                "mtxr.sqltools",
+                "mechatroner.rainbow-csv",
+                "dvirtz.parquet-viewer",
+                "rangav.vscode-thunder-client",
+                "tamasfe.even-better-toml",
+                "ayushchugh.jsoncrack-vscode",
+                "mohsen1.prettify-json",
+                "vsc-extension.json-to-csv",
+                "felipecaputo.git-graph",
+                "clinyong.vscode-data-preview"
+            ],
+            "settings": {
+                "editor.formatOnSave": true,
+                "python.defaultInterpreterPath": "/usr/local/bin/python",
+                "editor.codeActionsOnSave": {
+                    "source.fixAll.ruff": "explicit",
+                    "source.organizeImports.ruff": "explicit"
+                },
+                "rainbow_csv.autodetect": true,
+                "evenBetterToml.formatter.alignEntries": true
+            }
+        }
+    },
+    // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+    "remoteUser": "root"
+}
