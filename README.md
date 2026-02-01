@@ -2,7 +2,7 @@
 
 - Install Docker Desktop and VS Code.
 
-- Install the Dev Containers extension in VS Code.
+- Install the Remote Development extension in VS Code.
 
 - Clone this repository.
 
