@@ -1,11 +1,14 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the
-// README at: https://github.com/devcontainers/templates/tree/main/src/python
 {
-    "name": "Python 3",
-    // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+    "name": "Big Data Engineering - Azure & Python",
     "image": "mcr.microsoft.com/devcontainers/python:3.12-bookworm",
-    // Features to add to the dev container. More info: https://containers.dev/features.
     "features": {
+        "ghcr.io/devcontainers/features/common-utils:1": {
+            "installZsh": true,
+            "configureZshAsDefaultShell": true,
+            "installYarn": false,
+            "installOhMyZsh": true,
+            "upgradePackages": false
+        },
         "ghcr.io/devcontainers/features/azure-cli:1": {
             "version": "latest"
         },
@@ -15,33 +18,22 @@
         "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
             "version": "latest",
             "installDockerCompose": true
-        },
-        "ghcr.io/devcontainers/features/common-utils:1": {
-            "installZsh": true,
-            "configureZshAsDefaultShell": true
         }
     },
-    // Use 'postCreateCommand' to run commands after the container is created.
-    "postCreateCommand": "apt-get update && apt-get install -y jq htop && pip install uv && uv pip install yq ruff pytest duckdb parquet-tools visidata csvkit --system",
-    // Configure tool-specific properties.
+    "postCreateCommand": "apt-get update && apt-get install -y jq htop postgresql-client && curl -LsSf https://astral.sh/uv/install.sh | sh && /root/.local/bin/uv pip install --system ruff pytest duckdb parquet-tools visidata csvkit pandas polars pgcli",
     "customizations": {
         "vscode": {
             "extensions": [
                 "ms-python.python",
                 "ms-python.debugpy",
                 "charliermarsh.ruff",
-                "hashicorp.terraform",
-                "ms-vscode.azurecli",
                 "ms-azuretools.vscode-docker",
+                "ms-vscode.azurecli",
                 "mtxr.sqltools",
+                "mtxr.sqltools-driver-pg",
                 "mechatroner.rainbow-csv",
                 "dvirtz.parquet-viewer",
-                "rangav.vscode-thunder-client",
                 "tamasfe.even-better-toml",
-                "ayushchugh.jsoncrack-vscode",
-                "mohsen1.prettify-json",
-                "vsc-extension.json-to-csv",
-                "felipecaputo.git-graph",
                 "clinyong.vscode-data-preview"
             ],
             "settings": {
@@ -56,7 +48,14 @@
             }
         }
     },
-    // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
     "remoteUser": "root",
-    "forwardPorts": [3000,5000, 5001, 5002, 5003, 5004, 5005, 5006,8000, 8001, 8002, 8003, 8004, 8005, 8006]
+    "forwardPorts": [
+        5000,
+        5001,
+        8000,
+        8001,
+        8501,
+        8080,
+        8888
+    ]
 }
